@@ -1,6 +1,12 @@
 require("dotenv").config();
 require("express-async-errors");
 const connectDB = require("./db/connect");
+
+// Swagger
+const swaggerUI = require("swagger-ui-express");
+const YAML = require("yamljs");
+const swaggerDocument = YAML.load("./swagger.yaml");
+
 const express = require("express");
 const app = express();
 
@@ -31,10 +37,8 @@ app.use(helmet());
 app.use(cors());
 app.use(xss());
 // extra packages
+app.use("/", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
-app.get("/", (req, res) => {
-  res.status(StatusCodes.OK).send("<h1>JOBS API IS LIVE!</h1>");
-});
 // routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", authenticateUser, jobsRouter);
