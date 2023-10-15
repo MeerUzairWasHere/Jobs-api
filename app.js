@@ -17,9 +17,10 @@ const rateLimiter = require("express-rate-limit");
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const authenticateUser = require("./middleware/authentication");
+const { StatusCodes } = require("http-status-codes");
 
 app.set("trust proxy", 1);
-app.use( 
+app.use(
   rateLimiter({
     windowMs: 15 * 60 * 1000, // 15 mins
     max: 100, //limit each IP to 100 reqs per winMS
@@ -31,6 +32,9 @@ app.use(cors());
 app.use(xss());
 // extra packages
 
+app.get("/", (req, res) => {
+  res.status(StatusCodes.OK).send("<h1>JOBS API IS LIVE!</h1>");
+});
 // routes
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", authenticateUser, jobsRouter);
