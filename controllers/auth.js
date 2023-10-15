@@ -11,7 +11,7 @@ const registerUser = async (req, res) => {
     user: { name: user.name },
     token,
   });
-  //res.status(StatusCodes.CREATED).json({ user: { name: user.name }, token });
+
 };
 
 const loginUser = async (req, res) => {

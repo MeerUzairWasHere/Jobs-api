@@ -7,7 +7,7 @@ router.route("/register").post(registerUser);
 
 /*
 we can also write it like
-
+/api/v1/auth/login
 router.post("/login",loginUser)
 router.post("/register",registerUser)
 

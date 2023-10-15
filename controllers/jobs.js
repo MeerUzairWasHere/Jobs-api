@@ -15,9 +15,12 @@ const getSingleJob = async (req, res) => {
   const { id } = req.params;
   // const {
   //   user: { userId },         we can do nested destructuring here
-  //   params: { id: jobId },  
+  //   params: { id: jobId },
   // } = req;
-  const singleJob = await Job.findOne({ _id: id, createdById: req.user.userId });
+  const singleJob = await Job.findOne({
+    _id: id,
+    createdById: req.user.userId,
+  });
   if (!singleJob) {
     throw new NotFoundError(`Job with ID: ${id} not found!`);
   }
