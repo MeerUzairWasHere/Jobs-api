@@ -23,7 +23,6 @@ const rateLimiter = require("express-rate-limit");
 const notFoundMiddleware = require("./middleware/not-found");
 const errorHandlerMiddleware = require("./middleware/error-handler");
 const authenticateUser = require("./middleware/authentication");
-const { StatusCodes } = require("http-status-codes");
 
 app.set("trust proxy", 1);
 app.use(
@@ -41,6 +40,10 @@ app.get("/", (req, res) => {
   res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
 });
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
+
+app.get("*", (req, res) => {
+  res.redirect("/api-docs");
+}); // uncomment for production
 
 // routes
 app.use("/api/v1/auth", authRouter);
