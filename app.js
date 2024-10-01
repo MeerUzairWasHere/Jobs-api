@@ -35,10 +35,8 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 app.use(xss());
-// extra packages
-app.get("/", (req, res) => {
-  res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>');
-});
+
+
 app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 app.get("*", (req, res) => {
